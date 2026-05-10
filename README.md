@@ -15,7 +15,7 @@ SystemVerilog-based implementation of the I2C protocol with a complete RTL desig
 
 ---
 
-## 🧠 Basic Idea (Layman View)
+## 🧠 Basic Idea 
 
 - One device acts as **Master (controller)**
 - Other devices act as **Slaves (responders)**
