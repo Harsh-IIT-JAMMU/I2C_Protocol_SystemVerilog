@@ -45,3 +45,40 @@ the simulation organized.
 When all requested transactions have been generated, the generator
 triggers the 'done' event to tell the environment that its work
 is complete.
+
+Driver
+
+The driver is the component that actually "presses the buttons"
+of the DUT.
+
+Imagine the generator is a manager giving instructions:
+
+"Write value 7 to address 3."
+
+The DUT cannot understand this instruction directly.
+It only understands electrical signals such as:
+
+newd = 1
+op   = 0
+addr = 3
+din  = 7
+
+The driver takes the transaction from the generator and
+converts it into these interface signals.
+
+For a WRITE operation:
+1. Driver puts address and data on interface.
+2. Driver asserts newd.
+3. DUT starts I2C write transaction.
+4. Driver waits until done signal becomes high.
+
+For a READ operation:
+1. Driver puts address on interface.
+2. Driver asserts newd.
+3. DUT reads data from slave.
+4. Driver waits for done signal.
+5. Driver prints received data.
+
+After completing the operation, the driver triggers
+the drvnext event so the generator knows it can
+send the next transaction.
