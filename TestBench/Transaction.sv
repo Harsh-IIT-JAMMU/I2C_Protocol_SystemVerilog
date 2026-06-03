@@ -7,8 +7,8 @@ class transaction;
   bit newd;
 
   // Operation type:
-  // op = 1 -> Write operation
-  // op = 0 -> Read operation
+  // op = 0 -> Write operation
+  // op = 1 -> Read operation
   rand bit op;
 
   // Data to be written to the slave device
