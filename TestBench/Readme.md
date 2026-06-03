@@ -121,3 +121,101 @@ Generator --> Driver --> DUT
 The monitor is important because the scoreboard should verify
 what actually happened on the interface, not what the generator
 originally intended to send.
+
+
+
+
+
+
+
+Scoreboard
+
+
+
+Imagine you are testing an ATM machine.
+
+Suppose you deposit ₹500 into account number 3.
+
+The scoreboard keeps its own notebook and writes:
+
+Account 3 = ₹500
+
+Later, when the ATM says account 3 contains ₹500,
+the scoreboard checks its notebook.
+
+If both values match:
+    PASS
+
+If values differ:
+    FAIL
+
+The scoreboard works exactly the same way.
+
+It maintains its own reference memory called mem[].
+Whenever a WRITE operation occurs, it updates this memory.
+
+Example:
+
+WRITE:
+Address = 4
+Data = 8
+
+Scoreboard updates:
+mem[4] = 8
+
+Later a READ occurs:
+
+READ:
+Address = 4
+
+Expected value:
+mem[4] = 8
+
+If DUT returns 8:
+    DATA MATCHED
+
+If DUT returns anything else:
+    DATA MISMATCHED
+
+This is how the scoreboard determines whether the DUT
+is functioning correctly.
+
+
+
+
+
+
+1. Generator creates:
+      Write Address=3 Data=7
+
+2. Driver sends it to DUT
+
+3. Monitor observes:
+      Address=3 Data=7
+
+4. Scoreboard updates:
+      mem[3] = 7
+
+------------------------------------------------
+
+5. Generator creates:
+      Read Address=3
+
+6. Driver performs read
+
+7. DUT returns:
+      dout = 7
+
+8. Monitor captures:
+      Address=3 dout=7
+
+9. Scoreboard checks:
+      Expected = mem[3] = 7
+      Received = 7
+
+10. PASS
+
+
+
+
+
