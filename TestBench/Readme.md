@@ -11,30 +11,44 @@ The objective of the testbench is to automatically generate random I2C read and 
 # Verification Architecture
 
 ```text
-                 mailbox (mbxgd)
+              mailbox (mbxgd)
 
- Generator ---------------------> Driver
-     ^                              |
-     |                              |
-     | drvnext event                |
-     |                              v
-     |                           +------+
-     |                           | DUT  |
-     |                           +------+
-     |                              |
-     |                              v
-     |                         Monitor
-     |                              |
-     | mailbox (mbxms)              |
-     +------------------------------+
-                                    |
-                                    v
-                               Scoreboard
-                                    |
-                                    |
-                               sconext event
-                                    |
-                                    +------> Generator
+          +----------------------+
+          |      Generator       |
+          +----------------------+
+                     |
+                     |
+                     v
+          +----------------------+
+          |        Driver        |
+          +----------------------+
+                     |
+                     |
+                     v
+          +----------------------+
+          |         DUT          |
+          +----------------------+
+                     |
+                     |
+                     v
+          +----------------------+
+          |       Monitor        |
+          +----------------------+
+                     |
+                     | mailbox (mbxms)
+                     v
+          +----------------------+
+          |     Scoreboard       |
+          +----------------------+
+
+Events:
+--------
+Driver     --drvnext--> Generator
+Scoreboard --sconext--> Generator
+
+Completion:
+-----------
+Generator --done--> Testbench
 ```
 
 ---
