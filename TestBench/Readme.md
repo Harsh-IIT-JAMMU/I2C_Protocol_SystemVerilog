@@ -82,3 +82,42 @@ For a READ operation:
 After completing the operation, the driver triggers
 the drvnext event so the generator knows it can
 send the next transaction.
+
+
+
+Monitor
+
+
+The monitor acts like a CCTV camera connected to the DUT.
+
+The driver actively sends commands to the DUT.
+The monitor simply watches everything that happens.
+
+For example, suppose the driver performs:
+
+Write data 7 to address 3
+
+The monitor observes:
+- Which address was used
+- Which data was sent
+- Whether it was a read or write operation
+- What data came back from the DUT
+
+Once it captures this information, it creates a transaction
+record and sends it to the scoreboard.
+
+The scoreboard then checks whether the DUT behaved correctly.
+
+Verification Flow:
+
+Generator --> Driver --> DUT
+                           |
+                           v
+                        Monitor
+                           |
+                           v
+                       Scoreboard
+
+The monitor is important because the scoreboard should verify
+what actually happened on the interface, not what the generator
+originally intended to send.
