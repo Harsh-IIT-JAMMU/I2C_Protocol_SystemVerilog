@@ -56,8 +56,8 @@ class transaction;
   //----------------------------------------------------------
   // Controls distribution of read and write operations.
   //
-  // op = 1 (Write) -> 50%
-  // op = 0 (Read)  -> 50%
+  // op = 0 (Write) -> 50%
+  // op = 1 (Read)  -> 50%
   //
   // 'dist' is used to control probability.
   constraint rd_wr_c
